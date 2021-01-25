@@ -1,0 +1,45 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="VSemenov">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tree.css' %}">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/vertek.ico' %}">
+
+    {% block title %}{% endblock %}
+  </head>
+
+  <body>
+  {% include 'inc/_nav.html' %}
+
+    <div class="container-fluid">
+      <div class="row">
+        {% block sidebar %} {% endblock %}
+        {% block content %} {% endblock %}
+      </div>
+      <div class="row">
+        <div class="col">
+          {% include 'inc/_footer.html' %}
+        </div>
+      </div>
+    </div>>
+
+    <script src="{% static 'jquery/jquery-3.5.1.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="{% static 'jquery/jquery-3.5.1.js' %}"><\/script>')</script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <!--script src="{% static 'Chart.js/2.7.3/Chart.min.js' %}"></script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script-->
+    <!--script src="{% static 'js/dashboard.js' %}"></script-->
+    <script src="{% static 'js/tree.js' %}"></script>
+  </body>
+</html>

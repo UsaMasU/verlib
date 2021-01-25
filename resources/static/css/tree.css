@@ -1,0 +1,44 @@
+details[open] div {
+    animation: spoiler 1s;
+}
+@keyframes spoiler {
+            0%   {opacity: 0;}
+            100% {opacity: 1;}
+        }
+.treeHTML {
+            line-height: 1.0;
+            /*line-height: normal;*/
+        }
+.treeHTML details {
+            display: block;
+}
+.treeHTML div {
+            position: relative;
+            margin: 0 0 0 .5em;
+            padding: 0 0 0 1.2em;
+        }
+.treeHTML div:not(:last-child) { /* необязательно */
+            border-left: 1px solid #ccc;
+ }
+.treeHTML div:before { /* необязательно */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1.1em;
+            height: .5em;
+            border-bottom: 1px solid #ccc;
+        }
+.treeHTML div:last-child:before { /* необязательно */
+            border-left: 1px solid #ccc;
+}
+.treeHTML summary { /* стилями можно задать любую форму, например, тот же плюс. */
+            /*position: absolute;*/
+            position: sticky;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+.treeHTML details[open] summary { /* убрать рамку при фокусе */
+            outline: none;
+}

@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow fixed-top sticky-top p-0">
+    <!--a class="navbar-brand" href="#"></a>
+    <img src="" alt="`Лого" width="42" height="42"-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+            aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse my-1" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            {% if active_page == "main" %}
+            <li class="nav-item active">
+                {% else %}
+            <li class="nav-item px-1">
+                {% endif %}
+                <a class="nav-link btn btn-outline-primary btn-sm text-white" role="button" href="{% url 'lib_main' %}">Главная</a>
+            </li>
+
+            <li class="text-nowrap px-1">
+                <a class="nav-link btn btn-outline-secondary btn-sm my-sm-0 text-white" role="button" href="/admin">Администрирование</a>
+            </li>
+
+            <li class="nav-item dropdown px-1">
+                <a class="nav-link dropdown-toggle btn btn-outline-secondary btn-sm my-sm-0 text-white" role="button"
+                   href="#" id="dropdown01"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Меню</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="{% url 'lib_main' %}">Библиотека решений</a>
+                    <a class="dropdown-item" href="https://yandex.ru/images/search?text=%D0%BA%D0%BE%D1%82%D0%B8%D0%BA%D0%B8">just for fun...</a>
+                    {% for menu_item in menu_global %}
+                        <a class="dropdown-item" href="{{menu_item.get_absolute_url}}">{{ menu_item.title }}</a>
+                    {%endfor%}
+                </div>
+            </li>
+
+            <li class="text-nowrap px-1">
+                <form class="form-inline mt-2 mt-md-0">
+                    <input class="form-control mr-sm-2 rounded" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-info my-2 my-sm-0 button-hide" type="submit">Search</button>
+                </form>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            {% if user.get_username == "" %}
+            <li class="text-nowrap px-1">
+                <a class="nav-link btn btn-outline-success btn-sm my-sm-0 text-white" role="button"
+                   href="/account/login">Войти</a>
+                {% else %}
+            <li class="text-nowrap px-1">
+                <a class="nav-link btn btn-primary btn-sm my-sm-0 text-white">{{ user.get_username }}</a>
+                {% endif %}
+            </li>
+            <li class="text-nowrap px-1">
+                <a class="nav-link btn btn-outline-success btn-sm my-sm-0 text-white" role="button"
+                   href="#">Выйти</a>
+            </li>
+        </ul>
+    </div>
+</nav>

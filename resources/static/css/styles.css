@@ -1,0 +1,54 @@
+.block {
+  border: 1px solid red;
+}
+
+.block-height {
+    height: 100px;
+}
+
+footer {
+  background-color: #ccc;
+  left: 0;
+  right: 0;
+}
+
+/*
+:root {
+    --percent-20: 20%;
+    --percent-30: 30%;
+}
+
+.sidebar-width {
+    max-width: var(--percent-20);
+}
+
+.content-left {
+    margin-left: var(--percent-20);
+    padding-left: var(--percent-20);
+}*/
+
+
+.bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+}
+
+@media (min-width: 786px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 1500px) {
+    .button-hide {
+        display: none;
+      }
+}
+
+
+
+

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load proglib_filters %}
+
+{% block title %}
+    <title>Vertek</title>
+{% endblock %}
+
+{% block sidebar %}
+    {% include './inc/_sidebar.html' %}
+{% endblock %}
+
+{% comment %}{% endcomment %}
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10" style="padding-left: 0px; padding-right: 0px;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm">
+        <div class="col-sm card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{ object.func }}
+              <small class="text-muted">/ {{ object.version }}</small>
+              <small class="text-muted pull-right" style="font-size: 30%">{{ object.updated_at }} {{ object.author }}</small>
+            </h1>
+            {{ object.content|safe|linebreaks }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="row">
+          <div class="col-sm">
+            <div class="col-sm card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Ссылки на описание</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+                </h1>
+                {{ object.links|safe|linebreaks }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <div class="col-sm card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Примеры/Решения</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+                </h1>
+                {{ object.implements|safe|linebreaks }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="col-sm card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Поддержка PLC</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+                </h1>
+                {% for plc in object_plc %}
+                <a href="{{ plc.get_absolute_url }}">{{ plc }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="col-sm card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Поддержка HMI</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+                </h1>
+                {% for hmi in object_hmi %}
+                <a href="{{ plc.get_absolute_url }}">{{ hmi }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <div class="col-sm card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Метки</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+                </h1>
+                {% for tag in object_tag %}
+                  <a href="{{ tag.get_absolute_url }}">{{ tag|add_symbol:'#' }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
