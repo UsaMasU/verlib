@@ -13,7 +13,6 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10" style="padding-left: 0px; padding-right: 0px;">
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-sm card mb-4 shadow-sm">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
@@ -49,17 +48,17 @@
                                 <td>{{ obj.version }}</td>
                                 <td>
                                     {% for plc in obj.plc.prefetch_related %}
-                                        <a href="{{ plc.get_absolute_url }}">{{ plc }}</a>
+                                    <a href="{{ plc.get_absolute_url }}">{{ plc }}</a>
                                     {% endfor %}
                                 </td>
                                 <td>
                                     {% for hmi in obj.hmi.prefetch_related %}
-                                        <a href="{{ hmi.get_absolute_url }}">{{ hmi }}</a>
+                                    <a href="{{ hmi.get_absolute_url }}">{{ hmi }}</a>
                                     {% endfor %}
                                 </td>
                                 <td>
                                     {% for tag in obj.tag.prefetch_related %}
-                                        <a href="{{ tag.get_absolute_url }}">{{ tag }}</a>
+                                    <a href="{{ tag.get_absolute_url }}">{{ tag }}</a>
                                     {% endfor %}
                                 </td>
                                 <td>{{ obj.author }}</td>
@@ -74,10 +73,8 @@
 
                 </div>
             </div>
-
         </div>
         <!--div class="row">
-
             <div class="col-sm card mb-4 shadow-sm">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
@@ -91,14 +88,8 @@
                     {{ object.content|safe|linebreaks }}
                 </div>
             </div>
-
         </div-->
-
     </div>
-
 </main>
-
-
-
 
 {% endblock %}

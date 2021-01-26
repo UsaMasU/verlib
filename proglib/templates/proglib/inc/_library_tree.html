@@ -1,23 +1,25 @@
 {% load mptt_tags %}
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-    <div class="sidebar-sticky pt-3">
-        <ul class="nav flex-column">
-                 <div class="treeHTML nav-link">Библиотека
-                  <li class="nav-item">
-                     {% recursetree lib_tree %}
-                     <div>&nbsp
-                        <details >
-                            <summary><a href="{{ node.get_absolute_url }}">{{ node.title }}</a></summary>
-                            {% if not node.is_leaf_node %}
-                            <dev class="children">
-                                {{ children }}
-                            </dev>
-                            {% endif %}
-                        </details>
-                    </div>
-                    {% endrecursetree %}
-                   </li>
+{% load icon %}
+
+<div class="sidebar-sticky pt-3">
+    <ul class="nav flex-column">
+        <div class="treeHTML nav-link">
+            <span>{% icon "book-open" class="css-class" height="1rem" width="1rem" %}</span>
+            Библиотека
+            <li class="nav-item">
+                {% recursetree lib_tree %}
+                <div>&nbsp
+                    <details>
+                        <summary><a href="{{ node.get_absolute_url }}">{{ node.title }}</a></summary>
+                        {% if not node.is_leaf_node %}
+                        <dev class="children">
+                            {{ children }}
+                        </dev>
+                        {% endif %}
+                    </details>
                 </div>
-        </ul>
-    </div>
-</nav>
+                {% endrecursetree %}
+            </li>
+        </div>
+    </ul>
+</div>

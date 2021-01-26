@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load proglib_filters %}
+
+{% block title %}
+    <title>Vertek</title>
+{% endblock %}
+
+{% block sidebar %}
+    {% include './inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10" style="padding-left: 0px; padding-right: 0px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm">
+                <div class="col-sm card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Метка {{ object.title|add_symbol:'#' }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">
+                            <small class="text-muted"></small>
+                        </h1>
+                        {{ object.content|safe|linebreaks }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="col-sm card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Обьекты с меткой {{ object.title|add_symbol:'#' }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">
+                            <small class="text-muted"></small>
+                        </h1>
+                        {% if object_list %}
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Имя</th>
+                                    <th>Функция</th>
+                                    <th>Версия</th>
+                                    <th>ПЛК</th>
+                                    <th>ЧМИ</th>
+                                    <th>Автор</th>
+                                    <th>Изменение</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for obj in object_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></td>
+                                    <td><a href="{{ obj.get_absolute_url }}">{{ obj.func }}</a></td>
+                                    <td>{{ obj.version }}</td>
+                                    <td>
+                                        {% for plc in obj.plc.prefetch_related %}
+                                        <a href="{{ plc.get_absolute_url }}">{{ plc }}</a>
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        {% for hmi in obj.hmi.prefetch_related %}
+                                        <a href="{{ hmi.get_absolute_url }}">{{ hmi }}</a>
+                                        {% endfor %}
+                                    </td>
+                                    <td>{{ obj.author }}</td>
+                                    <td>{{ obj.updated_at }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+{% endblock %}

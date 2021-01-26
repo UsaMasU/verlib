@@ -4,9 +4,9 @@ from .views import *
 
 urlpatterns = [
     path('', index, name='lib_main'),
-    path('lib/<str:slug>', CategoryItem.as_view(), name='lib_category'),
-    path('lib/plc/<str:slug>', ItemDetail.as_view(), name='lib_plc'),
-    path('lib/hmi/<str:slug>', ItemDetail.as_view(), name='lib_hmi'),
-    path('lib/tag/<str:slug>', ItemDetail.as_view(), name='lib_tag'),
-    path('lib/item/<str:slug>', ItemDetail.as_view(), name='lib_item')
+    path('lib/<str:slug>', CategoryView.as_view(), name='lib_category'),
+    path('lib/plc/<str:slug>', PLCView.as_view(), name='lib_plc'),
+    path('lib/hmi/<str:slug>', HMIView.as_view(), name='lib_hmi'),
+    path('lib/tag/<str:slug>', TagView.as_view(), name='lib_tag'),
+    path('lib/item/<str:slug>', ItemView.as_view(), name='lib_item')
 ]
