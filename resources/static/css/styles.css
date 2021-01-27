@@ -37,20 +37,11 @@ footer {
         user-select: none;
 }
 
-@media (min-width: 786px) {
-    .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-    }
+
+.noborder {
+    border: 0;
+    /*border-radius: 0;*/
 }
-
-@media (max-width: 1500px) {
-    .button-hide {
-        display: none;
-      }
-
-}
-
-
 
 
 

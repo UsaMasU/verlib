@@ -1,13 +1,5 @@
 {% load icon %}
 
-<style>
-    .noborder {
-        border: 0;
-        border-radius: 0;
-    }
-</style>
-
-
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow fixed-top sticky-top p-0">
     <!--a class="navbar-brand" href="#"></a>
     <img src="" alt="`Лого" width="42" height="42"-->
@@ -17,55 +9,40 @@
     </button>
 
     <div class="collapse navbar-collapse my-1" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            {% if active_page == "main" %}
-            <li class="nav-item active">
-                {% else %}
-            <li class="nav-item px-1">
-                {% endif %}
-                <a class="nav-link btn btn-outline-primary btn-sm text-white noborder" role="button" href="{% url 'lib_main' %}">
-                    <span>{% icon "home" class="css-class" height="1rem" width="1rem" %}</span>
+        <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Главная страница">
+            <a class="nav-link btn btn-outline-primary btn-sm my-sm-0 text-white noborder" role="button"
+               href="{% url 'lib_main' %}">
+                <span>{% icon "home" class="css-class" height="1rem" width="1rem" %}</span>
+            </a>
+        </div>
+
+        <div class="nav-item dropdown text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Меню">
+            <a class="nav-link dropdown-toggle btn btn-outline-secondary btn-sm my-sm-0 text-white noborder removecaret"
+               role="button"
+               href="#" id="dropdown01"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span>{% icon "menu" class="css-class" height="1rem" width="1rem" %}</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" href="{% url 'lib_main' %}">
+                    <span>{% icon "book-open" class="css-class" height="1rem" width="1rem" %}</span>
+                    Библиотека решений
                 </a>
-            </li>
-
-            <li class="nav-item dropdown px-1">
-                <a class="nav-link dropdown-toggle btn btn-outline-secondary btn-sm my-sm-0 text-white noborder" role="button"
-                   href="#" id="dropdown01"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span>{% icon "menu" class="css-class" height="1rem" width="1rem" %}</span>
+                <a class="dropdown-item"
+                   href="https://yandex.ru/images/search?text=%D0%BA%D0%BE%D1%82%D0%B8%D0%BA%D0%B8">
+                    <span>{% icon "smile" class="css-class" height="1rem" width="1rem" %}</span>
+                    just for fun...
                 </a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="{% url 'lib_main' %}">
-                        <span>{% icon "book-open" class="css-class" height="1rem" width="1rem" %}</span>
-                        Библиотека решений
-                    </a>
-                    <a class="dropdown-item"
-                       href="https://yandex.ru/images/search?text=%D0%BA%D0%BE%D1%82%D0%B8%D0%BA%D0%B8">
-                        <span>{% icon "smile" class="css-class" height="1rem" width="1rem" %}</span>
-                        just for fun...
-                    </a>
-                    <a class="dropdown-item" href="https://bootsnipp.com/snippets/2q81r">
-                        Меню поиска
-                    </a>
-                    {% for menu_item in menu_global %}
-                    <a class="dropdown-item" href="{{menu_item.get_absolute_url}}">{{ menu_item.title }}</a>
-                    {%endfor%}
-                </div>
-            </li>
+                <a class="dropdown-item" href="https://bootsnipp.com/snippets/2q81r">
+                    Меню поиска
+                </a>
+                {% for menu_item in menu_global %}
+                <a class="dropdown-item" href="{{menu_item.get_absolute_url}}">{{ menu_item.title }}</a>
+                {%endfor%}
+            </div>
+        </div>
 
-            <!--li class="text-nowrap px-1">
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2 rounded" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-info my-2 my-sm-0 button-hide" type="submit">
-                        <span>{% icon "search" class="css-class" height="1rem" width="1rem" %}</span>
-                    </button>
-                </form>
-            </li-->
-
-        </ul>
-
-        <ul class="navbar-nav">
-
+        <ul class="navbar-nav navbar-collapse mr-auto">
             <li class="text-nowrap px-1">
                 <section class="search-sec">
                     <div class="container">
@@ -73,26 +50,24 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-12 p-0">
+                                        <!--div class="col-lg-4 col-md-4 col-sm-12 p-0">
                                             <input type="text" class="form-control search-slt"
                                                    placeholder="объект..." aria-label="Search">
+                                        </div-->
+                                        <div class="col-lg-7 col-md-7 col-sm-12 p-0">
+                                            <input type="text" class="form-control search-slt"
+                                                   placeholder="искать..." data-toggle="tooltip" data-placement="bottom" title="Поиск">
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-                                            <input type="text" class="form-control search-slt"
-                                                   placeholder="метка...">
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                            <select class="form-control search-slt" id="exampleFormControlSelect1"
-                                                    style="padding: 0 1em 0 1em;">
-                                                <option>выбор опции</option>
-                                                <option>выбор опции</option>
-                                                <option>выбор опции</option>
+                                            <select class="form-control search-slt"
+                                                    style="padding: 0 1em 0 1em;" data-toggle="tooltip" data-placement="bottom" title="Опция поиска">
+                                                <option>объект</option>
+                                                <option>метка</option>
+                                                <option>текст</option>
                                             </select>
                                         </div>
-                                        <div class="col-lg-1 col-md-1 col-sm-12 p-0">
-                                            <!--button type="button" class="btn btn-outline-info my-2 my-sm-0 button-hidden rounded-right">
-                                                <span>{% icon "search" class="css-class" height="1rem" width="1rem" %}</span>
-                                            </button-->
+
+                                        <div class="col-lg-1 col-md-1 col-sm-12 p-0" data-toggle="tooltip" data-placement="bottom" title="Искать">
                                             <a class="nav-link btn btn-outline-info btn-sm my-sm-0 text-white noborder"
                                                role="button"
                                                href="#">
@@ -106,32 +81,37 @@
                     </div>
                 </section>
             </li>
+        </ul>
 
-            <li class="text-nowrap px-1">
-                <a class="nav-link btn btn-outline-success btn-sm my-sm-0 text-white noborder" role="button"
-                   href="/admin">
-                    <span>{% icon "settings" class="css-class" height="1rem" width="1rem" %}</span>
-                </a>
-            </li>
-            {% if user.get_username == "" %}
-            <li class="text-nowrap px-1">
-                <a class="nav-link btn btn-outline-primary btn-sm my-sm-0 text-white noborder" role="button"
-                   href="/account/login">
-                     <span>{% icon "log-in" class="css-class" height="1rem" width="1rem" %}</span>
-                </a>
-                {% else %}
-            <li class="text-nowrap px-1">
-                <a class="nav-link btn btn-primary btn-sm my-sm-0 text-white">{{ user.get_username }}</a>
-            </li>
+        <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Управление">
+            <a class="nav-link btn btn-outline-success btn-sm my-sm-0 text-white noborder" role="button"
+               href="/admin">
+                <span>{% icon "settings" class="css-class" height="1rem" width="1rem" %}</span>
+            </a>
+        </div>
+
+        {% if user.get_username == "" %}
+        <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Вход">
+            <a class="nav-link btn btn-outline-primary btn-sm my-sm-0 text-white noborder" role="button"
+               href="/account/login">
+                <span>{% icon "log-in" class="css-class" height="1rem" width="1rem" %}</span>
+            </a>
+            {% else %}
+            <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Пользователь">
+                <a class="nav-link btn btn-primary btn-sm my-sm-0 text-white noborder">{{ user.get_username }}</a>
+            </div>
             {% endif %}
+
             {% if user.get_username != "" %}
-            <li class="text-nowrap px-1">
+            <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Выход">
                 <a class="nav-link btn btn-outline-warning btn-sm my-sm-0 text-white noborder" role="button"
                    href="#">
                     <span>{% icon "log-out" class="css-class" height="1rem" width="1rem" %}</span>
                 </a>
-            </li>
+            </div>
             {% endif %}
-        </ul>
+        </div>
+
     </div>
+
 </nav>
