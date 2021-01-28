@@ -15,12 +15,14 @@
         <div class="col-sm card mb-4 shadow-sm">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
+            <span>Категория:
+              <a class="category" href="{{ object.category.get_absolute_url }}">{{ object.category }}</a>
+            </span>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">{{ object.func }}
               <small class="text-muted">/ {{ object.version }}</small>
-              <small class="text-muted pull-right" style="font-size: 30%">{{ object.updated_at }} {{ object.author
-                }}</small>
+              <small class="text-muted pull-right" style="font-size: 30%">{{ object.updated_at }} {{ object.author }}</small>
             </h1>
             {{ object.content|safe|linebreaks }}
           </div>
@@ -79,7 +81,7 @@
                 <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
                 </h1>
                 {% for hmi in object_hmi %}
-                <a href="{{ plc.get_absolute_url }}">{{ hmi }}</a>
+                <a href="{{ hmi.get_absolute_url }}">{{ hmi }}</a>
                 {% endfor %}
               </div>
             </div>

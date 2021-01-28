@@ -42,3 +42,7 @@ details[open] div {
 .treeHTML details[open] summary { /* убрать рамку при фокусе */
             outline: none;
 }
+
+.branchRed {
+    color: red;
+}
