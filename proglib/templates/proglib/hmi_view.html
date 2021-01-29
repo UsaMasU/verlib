@@ -66,7 +66,11 @@
                                         <a href="{{ tag.get_absolute_url }}">{{ tag }}</a>
                                         {% endfor %}
                                     </td>
-                                    <td>{{ obj.author }}</td>
+                                    <td>
+                                        {% for author in obj.author.prefetch_related %}
+                                        <a href="{{ author.get_absolute_url }}">{{ author }}</a>
+                                        {% endfor %}
+                                    </td>
                                     <td>{{ obj.updated_at }}</td>
                                 </tr>
                                 {% endfor %}

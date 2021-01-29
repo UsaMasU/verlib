@@ -16,7 +16,7 @@ class Tag(models.Model):
 
     class Meta:
         verbose_name = 'Метка'
-        verbose_name_plural = 'Метки'
+        verbose_name_plural = '3.Метки'
         ordering = ['title']
 
 
@@ -34,7 +34,7 @@ class PLC(models.Model):
 
     class Meta:
         verbose_name = 'Программируемый логический контроллер'
-        verbose_name_plural = 'ПЛК'
+        verbose_name_plural = '4.ПЛК'
         ordering = ['title']
 
 
@@ -52,14 +52,31 @@ class HMI(models.Model):
 
     class Meta:
         verbose_name = 'Человеко-машинный интерфейс'
-        verbose_name_plural = 'ЧМИ'
+        verbose_name_plural = '5.Визуализация'
         ordering = ['title']
+
+
+class ItemAuthor(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Имя', unique=True)
+    profile = models.TextField(verbose_name='Данные профиля', blank=True)
+    slug = models.SlugField(max_length=50, verbose_name='Имя URL', unique=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('lib_author', kwargs={"slug": self.slug})
+
+    class Meta:
+        verbose_name = 'Автор модуля'
+        verbose_name_plural = '6.Авторы'
+        ordering = ['name']
 
 
 class LibraryTree(MPTTModel):
     title = models.CharField(max_length=50, verbose_name='Название категории', unique=True)
     slug = models.SlugField(max_length=50, verbose_name='Имя URL', unique=True)
-    tag = models.ManyToManyField(Tag, verbose_name="Метка")
+    tag = models.ManyToManyField(Tag, verbose_name="Метка", blank=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     photo = models.ImageField(upload_to='images/%Y/%m/%d/', verbose_name='Изображение', blank=True)
     content = models.TextField(blank=True)
@@ -72,7 +89,7 @@ class LibraryTree(MPTTModel):
 
     class Meta:
         verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
+        verbose_name_plural = '1.Категории'
         ordering = ['title']
 
     class MPTTMeta:
@@ -85,10 +102,10 @@ class LibraryItem(models.Model):
     version = models.DecimalField(verbose_name='Версия', max_digits=10, decimal_places=2)
     category = TreeForeignKey(LibraryTree, verbose_name='Категория', on_delete=models.PROTECT)
     slug = models.SlugField(max_length=255, verbose_name='Имя URL', unique=True)
-    plc = models.ManyToManyField(PLC, verbose_name="ПЛК", blank=True)
-    hmi = models.ManyToManyField(HMI, verbose_name="ЧМИ", blank=True)
+    plc = models.ManyToManyField(PLC, verbose_name="PLC", blank=True)
+    hmi = models.ManyToManyField(HMI, verbose_name="HMI", blank=True)
     tag = models.ManyToManyField(Tag, verbose_name="Метка", blank=True)
-    author = models.CharField(verbose_name='Автор', max_length=100)
+    author = models.ManyToManyField(ItemAuthor, verbose_name='Автор')
     content = models.TextField(verbose_name='Описание', blank=True)
     links = models.TextField(verbose_name='Ссылки', blank=True)
     implements = models.TextField(verbose_name='Применение', blank=True)
@@ -106,7 +123,7 @@ class LibraryItem(models.Model):
 
     class Meta:
         verbose_name = 'Обьект'
-        verbose_name_plural = 'Обьекты'
+        verbose_name_plural = '2.Обьекты'
         ordering = ['-created_at']
 
 

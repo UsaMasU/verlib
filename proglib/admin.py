@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
-from .models import LibraryTree, LibraryItem, PLC, HMI, Tag
+from .models import LibraryTree, LibraryItem, PLC, HMI, Tag, ItemAuthor
 from django import forms
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
@@ -23,6 +23,18 @@ def clone_db_obj(modeladmin, request, queryset):
 
 
 clone_db_obj.short_description = "Дублировать обьект"
+
+
+class ItemAuthorAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_display_links = ('name', )
+    search_fields = ('name',)
+    list_filter = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
+    save_on_top = True
+
+
+admin.site.register(ItemAuthor, ItemAuthorAdmin)
 
 
 class TagAdmin(admin.ModelAdmin):

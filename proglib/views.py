@@ -48,6 +48,21 @@ class TagView(DetailView, MultipleObjectMixin):
         print(object_list)
         return context
 
+
+class ItemAuthorView(DetailView, MultipleObjectMixin):
+    model = Tag
+    template_name = 'proglib/tag_view.html'
+    paginate_by = 2
+
+    def get_context_data(self, **kwargs):
+        object_list = LibraryItem.objects.filter(tag__slug=self.object.slug)
+        context = super(ItemAuthorView, self).get_context_data(object_list=object_list, **kwargs)
+        context['page_title'] = kwargs['object'].title
+        context['object_list'] = object_list
+        print(object_list)
+        return context
+
+
 class CategoryView(DetailView, MultipleObjectMixin):
     model = LibraryTree
     template_name = 'proglib/category_view.html'
@@ -74,4 +89,5 @@ class ItemView(DetailView):
         context['object_plc'] = context['object'].plc.prefetch_related().all()
         context['object_hmi'] = context['object'].hmi.prefetch_related().all()
         context['object_tag'] = context['object'].tag.prefetch_related().all()
+        context['object_author'] = context['object'].author.prefetch_related().all()
         return context

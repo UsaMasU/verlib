@@ -1,5 +1,18 @@
 {% load icon %}
 
+<style>
+.showSearch {
+    display: none;
+}
+
+.showSearch.active {
+    display: block;
+}
+
+
+
+</style>
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow fixed-top sticky-top p-0">
     <!--a class="navbar-brand" href="#"></a>
     <img src="" alt="`Лого" width="42" height="42"-->
@@ -42,6 +55,12 @@
             </div>
         </div>
 
+        <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Поиск" id="searchBtn">
+            <a class="nav-link btn btn-outline-info btn-sm my-sm-0 text-white noborder" role="button">
+                <span>{% icon "search" class="css-class" height="1rem" width="1rem" %}</span>
+            </a>
+        </div>
+
         <ul class="navbar-nav navbar-collapse mr-auto">
             <li class="text-nowrap px-1">
                 <section class="search-sec">
@@ -54,24 +73,24 @@
                                             <input type="text" class="form-control search-slt"
                                                    placeholder="объект..." aria-label="Search">
                                         </div-->
-                                        <div class="col-lg-7 col-md-7 col-sm-12 p-0">
-                                            <input type="text" class="form-control search-slt"
+                                        <div class="col-lg-7 col-md-7 col-sm-12 p-0 showSearch">
+                                            <input type="text" class="form-control search-slt "
                                                    placeholder="искать..." data-toggle="tooltip" data-placement="bottom" title="Поиск">
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-12 p-0">
+                                        <div class="col-lg-4 col-md-4 col-sm-12 p-0 showSearch">
                                             <select class="form-control search-slt"
-                                                    style="padding: 0 1em 0 1em;" data-toggle="tooltip" data-placement="bottom" title="Опция поиска">
+                                                    style="padding: 0 .75rem 0 1rem;" data-toggle="tooltip" data-placement="bottom" title="Опция поиска">
                                                 <option>объект</option>
                                                 <option>метка</option>
                                                 <option>текст</option>
                                             </select>
                                         </div>
 
-                                        <div class="col-lg-1 col-md-1 col-sm-12 p-0" data-toggle="tooltip" data-placement="bottom" title="Искать">
-                                            <a class="nav-link btn btn-outline-info btn-sm my-sm-0 text-white noborder"
+                                        <div class="col-lg-1 col-md-1 col-sm-12 p-0 showSearch" data-toggle="tooltip" data-placement="bottom" title="Искать">
+                                            <a class="btn btn-outline-primary col-sm-12 my-sm-0 text-white noborder"
                                                role="button"
                                                href="#">
-                                                <span>{% icon "search" class="css-class" height="1.125rem" width="1rem" %}</span>
+                                                <span>{% icon "corner-down-left" class="css-class" height="1.125rem" width="1rem" %}</span>
                                             </a>
                                         </div>
                                     </div>
@@ -115,3 +134,4 @@
     </div>
 
 </nav>
+

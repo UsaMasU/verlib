@@ -22,7 +22,15 @@
           <div class="card-body">
             <h1 class="card-title pricing-card-title">{{ object.func }}
               <small class="text-muted">/ {{ object.version }}</small>
-              <small class="text-muted pull-right" style="font-size: 30%">{{ object.updated_at }} {{ object.author }}</small>
+              <small class="text-muted pull-right" style="font-size: 30%">
+                обновлено:
+                {{ object.updated_at }}
+                <br>
+                автор:
+                {% for author in object_author %}
+                <a href="{{ author.get_absolute_url }}">{{ author }}</a>
+                {% endfor %}
+              </small>
             </h1>
             {{ object.content|safe|linebreaks }}
           </div>
