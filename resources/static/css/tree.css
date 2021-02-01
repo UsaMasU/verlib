@@ -17,10 +17,10 @@ details[open] div {
             margin: 0 0 0 .5em;
             padding: 0 0 0 1.2em;
         }
-.treeHTML div:not(:last-child) { /* необязательно */
+.treeHTML div:not(:last-child) {
             border-left: 1px solid #ccc;
  }
-.treeHTML div:before { /* необязательно */
+.treeHTML div:before {
             content: "";
             position: absolute;
             top: 0;
@@ -29,17 +29,17 @@ details[open] div {
             height: .5em;
             border-bottom: 1px solid #ccc;
         }
-.treeHTML div:last-child:before { /* необязательно */
+.treeHTML div:last-child:before {
             border-left: 1px solid #ccc;
 }
-.treeHTML summary { /* стилями можно задать любую форму, например, тот же плюс. */
+.treeHTML summary {
             /*position: absolute;*/
             position: sticky;
             top: 0;
             left: 0;
             cursor: pointer;
         }
-.treeHTML details[open] summary { /* убрать рамку при фокусе */
+.treeHTML details[open] summary { /*remove border in focus */
             outline: none;
 }
 

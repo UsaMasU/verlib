@@ -8,6 +8,10 @@ body {
   vertical-align: text-bottom;
 }
 
+.noborder {
+    border: 0;
+}
+
 /*
  * Sidebar
  */
@@ -112,7 +116,7 @@ body {
   padding: .75rem 1rem;
   /*border-width: 0;*/
   /*border-radius: 0;*/
-  height: calc(1.5em + 0.75rem - 2px);
+  height: calc(1.5em + 0.75rem - 0px);
 }
 
 .form-control-dark {
@@ -128,4 +132,15 @@ body {
 
 .removecaret.dropdown-toggle::after {
     display: none;
+}
+
+
+/*
+ * Footer
+ */
+
+footer {
+  background-color: #ccc;
+  left: 0;
+  right: 0;
 }

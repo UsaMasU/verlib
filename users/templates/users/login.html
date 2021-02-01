@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Авторизация</title>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid" style="max-width: 400px">
+    <br>
+    <div class="col-sm card mb-4 shadow-sm text-center">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Авторизация</h4>
+            <span><a href="#"></a></span>
+        </div>
+        <div class="card-body text-left">
+            <h1 class="card-title pricing-card-title">
+                <small class="text-muted"></small>
+                <small class="text-muted pull-right" style="font-size: 30%"><a href="#"></a></small>
+            </h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block">Войти</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

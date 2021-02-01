@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'mptt',
     'proglib.apps.ProglibConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
