@@ -1,6 +1,13 @@
-/* globals Chart:false, feather:false */
 
-(function () {
+$(document).ready(function(){
+        $("#searchBtn").click(function(){
+           $(".showSearch").toggleClass("active");
+           $("#searchBtn .btn").toggleClass("btn-info");
+        });
+});
+
+/* globals Chart:false, feather:false */
+/*(function () {
   'use strict'
 
   feather.replace()
@@ -51,3 +58,4 @@
     }
   })
 }())
+*/

@@ -134,6 +134,18 @@ body {
     display: none;
 }
 
+.showSearch {
+    display: none;
+}
+
+.showSearch.active {
+    display: block;
+}
+
+nav form button:hover {
+    background-color: grey;
+}
+
 
 /*
  * Footer

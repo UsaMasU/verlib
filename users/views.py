@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 
 from .forms import UserRegisterForm, UserLoginForm
 
@@ -16,6 +17,10 @@ def user_register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
+            group = Group.objects.get(name='ProgTeam')
+            user.groups.add(group)
+            user.is_staff = True
+            user.save()
             login(request, user)
             messages.success(request, 'Вы успешно зарегистрировались')
             return redirect('lib_main')
