@@ -32,7 +32,7 @@ class ItemAuthorAdmin(admin.ModelAdmin):
     list_filter = ('name',)
     prepopulated_fields = {'slug': ('name',)}
     save_on_top = True
-
+    show_change_link = True
 
 admin.site.register(ItemAuthor, ItemAuthorAdmin)
 
@@ -43,7 +43,17 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     list_filter = ('title',)
     prepopulated_fields = {'slug': ('title',)}
+    readonly_fields = ['link']
     save_on_top = True
+    show_change_link = True
+
+    def link(self, obj):
+        #url = reverse(...)
+        return mark_safe("<a href='%s'>edit</a>") # % url)
+
+    # the following is necessary if 'link' method is also used in list_display
+    link.allow_tags = True
+
 
 
 admin.site.register(Tag, TagAdmin)
@@ -66,7 +76,7 @@ class PLCAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     save_on_top = True
     actions = [clone_db_obj]
-
+    show_change_link = True
 
 admin.site.register(PLC, PLCAdmin)
 
@@ -88,6 +98,7 @@ class HMIAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     save_on_top = True
     actions = [clone_db_obj]
+    show_change_link = True
 
 admin.site.register(HMI, HMIAdmin)
 
@@ -146,6 +157,7 @@ class LibraryItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('category', 'title', 'func', 'version')}
     save_on_top = True
     actions = [clone_db_obj]
+    show_change_link = True
 
     def get_photo(self, obj):
         if obj.photo:

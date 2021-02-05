@@ -8,3 +8,9 @@ register = template.Library()
 def library_tree():
     lib_tree = LibraryTree.objects.all()
     return {"lib_tree": lib_tree}
+
+
+@register.inclusion_tag('proglib/inc/_library_tree.html')
+def last_news():
+    lib_tree = LibraryTree.objects.all()
+    return {"lib_tree": lib_tree}

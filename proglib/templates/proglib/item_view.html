@@ -17,6 +17,7 @@
             <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
             <span>Категория:
               <a class="category" href="{{ object.category.get_absolute_url }}">{{ object.category }}</a>
+              <a class="pull-right" href="/{{ object_edit_link }}">Редактировать</a>
             </span>
           </div>
           <div class="card-body">
@@ -32,7 +33,7 @@
                 {% endfor %}
               </small>
             </h1>
-            {{ object.content|safe|linebreaks }}
+            {{ object.content|safe}}
           </div>
         </div>
       </div>

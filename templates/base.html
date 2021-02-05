@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="VSemenov">
 
-
-
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
@@ -30,7 +28,7 @@
       </div>
       <div class="row">
         <div class="col">
-          {% include 'inc/_footer.html' %}
+          {% block footer %} {% include 'inc/_footer.html' %} {% endblock %}
         </div>
       </div>
     </div>
