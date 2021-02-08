@@ -1,0 +1,23 @@
+<div class="col-sm">
+    <div class="col-sm card mb-4 shadow-sm">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">
+                <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+            </h4>
+            <a href="{{ object.category.get_absolute_url }}">Категогия: {{ object.category }}</a>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">
+                <small class="text-muted"></small>
+                <small class="text-muted pull-right" style="font-size: 30%">
+                    Добавлено:
+                    {{ object.created_at }}
+                    <br>
+                    Обновлено:
+                    {{ object.updated_at }}
+                    <br>
+              </small>
+            </h1>
+        </div>
+    </div>
+</div>

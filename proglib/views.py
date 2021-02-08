@@ -1,11 +1,28 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
+from django.utils import timezone
 from django.views.generic import DetailView, ListView
 from django.views.generic.list import MultipleObjectMixin
 from proglib.models import LibraryTree, LibraryItem, PLC, Tag, HMI
 from .apps import ProglibConfig
 
-def index(request):
-    return render(request, 'proglib/index.html')
+
+class MainPage(ListView):
+    template_name = 'proglib/index.html'
+
+    def get(self, *args, **kwargs):
+        #get_super = super().get(*args, **kwargs)
+
+        paginator_upd = Paginator(LibraryItem.objects.filter(updated_at__lte=timezone.now()).order_by('-updated_at')[:10], 4)
+        page_num_upd = self.request.GET.get('page_upd', 1)
+        page_objects_upd = paginator_upd.get_page(page_num_upd)
+
+        paginator_new = Paginator(LibraryItem.objects.filter(created_at__lte=timezone.now()).order_by('-created_at')[:10], 4)
+        page_num_new = self.request.GET.get('page_new', 1)
+        page_objects_new = paginator_new.get_page(page_num_new)
+
+        context = {'upd_objects': page_objects_upd, 'new_objects': page_objects_new}
+        return render(self.request, self.template_name, context)
 
 
 class Search(ListView):

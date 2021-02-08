@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load proglib_tags %}
 
 {% block title %}
     <title>Vertek</title>
@@ -7,9 +8,72 @@
 
 
 {% block content %}
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h1">Vertek</h1>
+
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10" style="padding-left: 0px; padding-right: 0px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm">
+                <h2>
+                </h2>
+            </div>
         </div>
-    </main>
+        <div class="row">
+            <div class="col-sm">
+                <div class="col-sm card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Обновления элементов</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">
+                            <small class="text-muted"></small>
+                        </h1>
+
+                        {% include 'proglib/inc/_multipagination.html' with page_name='page_upd' page_obj=upd_objects other_page='&page_new' other_obj=new_objects %}
+
+                        <div class="col-md-12 well">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    {% for upd_obj in upd_objects %}
+                                        {% card_small object=upd_obj %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="col-sm card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Новые элементы</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">
+                            <small class="text-muted"></small>
+                        </h1>
+                        {% include 'proglib/inc/_multipagination.html' with page_name='page_new' page_obj=new_objects other_page='&page_upd' other_obj=upd_objects %}
+                        <div class="col-md-12 well">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    {% for new_obj in new_objects %}
+                                        {% card_small object=new_obj %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% comment %}
+        {% include 'proglib/inc/_multipagination.html' with page_name='page_plc' page_obj=plc_objects other_page='&page_hmi' other_obj=hmi_objects %}
+        {% multi_pagination page_name='page_plc' other_page='page_hmi' page_obj=plc_objects other_obj=hmi_objects %}
+    {% endcomment %}
+</main>
+
 {% endblock %}
