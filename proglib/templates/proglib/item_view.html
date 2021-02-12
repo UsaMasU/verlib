@@ -5,19 +5,17 @@
     <title>Vertek</title>
 {% endblock %}
 
-
 {% block content %}
-
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10" style="padding-left: 0px; padding-right: 0px;">
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm">
         <div class="col-sm card mb-4 shadow-sm">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
-            <span>Категория:
+            <h4 class="my-0 font-weight-bold">{{ object.title }}</h4>
+              <a href="/{{ object_edit_link }}">Редактировать</a>
+            <span class="pull-right">Категория:
               <a class="category" href="{{ object.category.get_absolute_url }}">{{ object.category }}</a>
-              <a class="pull-right" href="/{{ object_edit_link }}">Редактировать</a>
             </span>
           </div>
           <div class="card-body">
@@ -33,70 +31,28 @@
                 {% endfor %}
               </small>
             </h1>
-            {{ object.content|safe}}
+            {{ object.content|safe }}
           </div>
         </div>
       </div>
       <div class="col-sm">
+
         <div class="row">
-          <div class="col-sm">
-            <div class="col-sm card mb-4 shadow-sm">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Ссылки на описание</h4>
-              </div>
-              <div class="card-body">
-                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
-                </h1>
-                {{ object.links|safe|linebreaks }}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm">
-            <div class="col-sm card mb-4 shadow-sm">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Примеры/Решения</h4>
-              </div>
-              <div class="card-body">
-                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
-                </h1>
-                {{ object.implements|safe|linebreaks }}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
+
+          {% comment %}
+          {% if object.photo %}
           <div class="col">
             <div class="col-sm card mb-4 shadow-sm">
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Поддержка PLC</h4>
-              </div>
-              <div class="card-body">
-                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
-                </h1>
-                {% for plc in object_plc %}
-                <a href="{{ plc.get_absolute_url }}">{{ plc }}</a>
-                {% endfor %}
+                <div class="media">
+                  <img class="mx-auto d-block" src="{{ object.photo.url }}" alt="{{ object.title }}" width="50">
+                </div>
               </div>
             </div>
           </div>
-          <div class="col">
-            <div class="col-sm card mb-4 shadow-sm">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Поддержка HMI</h4>
-              </div>
-              <div class="card-body">
-                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
-                </h1>
-                {% for hmi in object_hmi %}
-                <a href="{{ hmi.get_absolute_url }}">{{ hmi }}</a>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
+          {% endif %}
+          {% endcomment %}
+
           <div class="col-sm">
             <div class="col-sm card mb-4 shadow-sm">
               <div class="card-header">
@@ -112,9 +68,72 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+
+          <div class="col">
+            <div class="col-sm card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">PLC</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+                </h1>
+                {% for plc in object_plc %}
+                <a href="{{ plc.get_absolute_url }}">{{ plc }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="col-sm card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">HMI</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+                </h1>
+                {% for hmi in object_hmi %}
+                <a href="{{ hmi.get_absolute_url }}">{{ hmi }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="col-sm card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Библиотека, примеры</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+                </h1>
+                {{ object.links|safe }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <div class="col-sm card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Реальные проекты</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+                </h1>
+                {{ object.implements|safe }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </main>
-
 {% endblock %}

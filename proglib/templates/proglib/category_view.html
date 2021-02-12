@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>Vertek</title>
 {% endblock %}
 
-
-
 {% block content %}
-
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10" style="padding-left: 0px; padding-right: 0px;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm card mb-4 shadow-sm">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
+                    <h4 class="my-0 font-weight-bold">{{ object.title }}</h4>
+                    <span class="pull-left">
+                        <a href="/{{ object_edit_link }}">Редактировать</a>
+                    </span>
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">
                         <small class="text-muted"></small>
                     </h1>
-                    {{ object.content|safe|linebreaks }}
+                    {{ object.content|safe }}
 
                     {% if object_list %}
                     <div class="table-responsive">
@@ -27,6 +28,7 @@
                             <thead>
                             <tr>
                                 <th>№</th>
+                                <th>Символ</th>
                                 <th>Имя</th>
                                 <th>Функция</th>
                                 <th>Версия</th>
@@ -41,8 +43,19 @@
                             {% for obj in object_list %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
+                                <td class="text-center">
+                                    <div class="media">
+                                        {% if obj.photo %}
+                                        <a href="{{ obj.get_absolute_url }}">
+                                            <img src="{{ obj.photo.url }}" alt="{{ obj.title }}" width="30">
+                                        </a>
+                                        {% else %}
+                                            <!--img src="{% static 'img/img_no.png' %}" alt="{{ obj.title }}" width="30"-->
+                                        {% endif %}
+                                    </div>
+                                </td>
                                 <td><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></td>
-                                <td><a href="{{ obj.get_absolute_url }}">{{ obj.func }}</a></td>
+                                <td>{{ obj.func }}</td>
                                 <td>{{ obj.version }}</td>
                                 <td>
                                     {% for plc in obj.plc.prefetch_related %}
@@ -76,22 +89,6 @@
                 </div>
             </div>
         </div>
-        <!--div class="row">
-            <div class="col-sm card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">
-                        <small class="text-muted"></small>
-                        <small class="text-muted pull-right" style="font-size: 30%">{{ object.updated_at }} {{
-                            object.author }}</small>
-                    </h1>
-                    {{ object.content|safe|linebreaks }}
-                </div>
-            </div>
-        </div-->
     </div>
 </main>
-
 {% endblock %}

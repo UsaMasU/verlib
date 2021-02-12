@@ -107,7 +107,7 @@ class LibraryItem(models.Model):
     tag = models.ManyToManyField(Tag, verbose_name="Метка", blank=True)
     author = models.ManyToManyField(ItemAuthor, verbose_name='Автор')
     content = models.TextField(verbose_name='Описание', blank=True)
-    links = models.TextField(verbose_name='Ссылки', blank=True)
+    links = models.TextField(verbose_name='Библиотека, примеры', blank=True)
     implements = models.TextField(verbose_name='Применение', blank=True)
     photo = models.ImageField(upload_to='images/%Y/%m/%d/', verbose_name='Изображение', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Опубликовано')
