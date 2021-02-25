@@ -2,6 +2,10 @@ from django.db import models
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 
+from django.contrib.contenttypes.fields import GenericRelation
+
+from comment.models import Comment
+
 
 class Tag(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название', unique=True)
@@ -113,10 +117,10 @@ class LibraryItem(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Опубликовано')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Обновлено')
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
-
+    comments = GenericRelation(Comment)
 
     def __str__(self):
-        return self.title
+        return f"{self.title}"
 
     def get_absolute_url(self):
         return reverse('lib_item', kwargs={"slug": self.slug})

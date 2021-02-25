@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load proglib_filters %}
+{% load comment_tags %} {# Loading the template tag #}
 
 {% block title %}
     <title>Vertek</title>
@@ -19,6 +20,14 @@
             </span>
           </div>
           <div class="card-body">
+            {% if not object_plc and not object_hmi and not object.links and not object.implements %}
+              {% if object_tag %}
+                Метки:
+                {% for tag in object_tag %}
+                  <a href="{{ tag.get_absolute_url }}">{{ tag|add_symbol:'#' }}</a> |
+                {% endfor %}
+              {% endif %}
+            {% endif %}
             <h1 class="card-title pricing-card-title">{{ object.func }}
               <small class="text-muted">/ {{ object.version }}</small>
               <small class="text-muted pull-right" style="font-size: 30%">
@@ -35,10 +44,10 @@
           </div>
         </div>
       </div>
+
+      {% if object_plc or object_hmi or object.links or object.implements %}
       <div class="col-sm">
-
         <div class="row">
-
           {% comment %}
           {% if object.photo %}
           <div class="col">
@@ -53,10 +62,11 @@
           {% endif %}
           {% endcomment %}
 
+          {% if object_tag %}
           <div class="col-sm">
             <div class="col-sm card mb-4 shadow-sm">
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Метки</h4>
+                <h6 class="my-0 font-weight-bold">Метки</h6>
               </div>
               <div class="card-body">
                 <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
@@ -67,14 +77,16 @@
               </div>
             </div>
           </div>
+          {% endif %}
         </div>
 
         <div class="row">
 
+          {% if object_plc %}
           <div class="col">
             <div class="col-sm card mb-4 shadow-sm">
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">PLC</h4>
+                <h6 class="my-0 font-weight-bold">PLC</h6>
               </div>
               <div class="card-body">
                 <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
@@ -85,11 +97,13 @@
               </div>
             </div>
           </div>
+          {% endif %}
 
+          {% if object_hmi %}
           <div class="col">
             <div class="col-sm card mb-4 shadow-sm">
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">HMI</h4>
+                <h6 class="my-0 font-weight-bold">HMI</h6>
               </div>
               <div class="card-body">
                 <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
@@ -100,15 +114,15 @@
               </div>
             </div>
           </div>
+          {% endif %}
         </div>
 
-
-
         <div class="row">
+          {% if object.links %}
           <div class="col-sm">
             <div class="col-sm card mb-4 shadow-sm">
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Библиотека, примеры</h4>
+                <h6 class="my-0 font-weight-bold">Библиотека, примеры</h6>
               </div>
               <div class="card-body">
                 <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
@@ -117,12 +131,15 @@
               </div>
             </div>
           </div>
+          {% endif %}
         </div>
+
         <div class="row">
+          {% if object.implements %}
           <div class="col-sm">
             <div class="col-sm card mb-4 shadow-sm">
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Реальные проекты</h4>
+                <h6 class="my-0 font-weight-bold">Реальные проекты</h6>
               </div>
               <div class="card-body">
                 <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
@@ -131,9 +148,33 @@
               </div>
             </div>
           </div>
+          {% endif %}
+        </div>
+
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm">
+        <div class="col-sm card mb-4 shadow-sm">
+          <div class="card-header">
+            <h6 class="my-0 font-weight-bold">Комментарии</h6>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title"><small class="text-muted"></small>
+            </h1>
+            {% comment %} call comment app tags {% endcomment %}
+            {% render_comments object request %}
+          </div>
         </div>
       </div>
     </div>
+
   </div>
+
 </main>
+
+
 {% endblock %}

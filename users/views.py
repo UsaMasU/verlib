@@ -1,10 +1,11 @@
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import UserRegisterForm, UserLoginForm, ContactForm
 
 
 def user_logout(request):
@@ -41,3 +42,21 @@ def user_login(request):
     else:
         form = UserLoginForm()
     return render(request, 'users/login.html', {"form": form})
+
+
+def user_feedback(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], 'proglib@vertek.ru', ['vsemenov@vertek.ru'], fail_silently=False)
+            mail = True
+            if mail:
+                messages.success(request, 'Письмо отправлено!')
+                return redirect('user_feedback')
+            else:
+                messages.error(request, 'Ошибка отправки')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = ContactForm()
+    return render(request, 'users/email.html', {"form": form})

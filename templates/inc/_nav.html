@@ -1,4 +1,5 @@
 {% load icon %}
+{% load static %}
 
 <style>
 </style>
@@ -12,6 +13,14 @@
     </button>
 
     <div class="collapse navbar-collapse my-1" id="navbarsExampleDefault">
+
+        <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Библиотека программных решений">
+            <a class="nav-link btn-light btn-sm d-none d-md-block noborder" role="button"
+               href="{% url 'lib_main' %}">
+                <div style="color: green;"><b>ProgLib</b></div>
+            </a>
+        </div>
+
         <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Главная страница">
             <a class="nav-link btn btn-outline-primary btn-sm my-sm-0 text-white noborder" role="button"
                href="{% url 'lib_main' %}">
@@ -30,6 +39,10 @@
                 <a class="dropdown-item" href="{% url 'lib_main' %}">
                     <span>{% icon "book-open" class="css-class" height="1rem" width="1rem" %}</span>
                     Библиотека решений
+                </a>
+                <a class="dropdown-item" href="{% url 'user_feedback' %}">
+                    <span>{% icon "pen-tool" class="css-class" height="1rem" width="1rem" %}</span>
+                    Обратная связь
                 </a>
                 <a class="dropdown-item"
                    href="https://yandex.ru/images/search?text=%D0%BA%D0%BE%D1%82%D0%B8%D0%BA%D0%B8">

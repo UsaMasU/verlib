@@ -22,6 +22,7 @@ from proglib.views import Search
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
+    path('comment/', include('comment.urls')),
     path('account/', include('users.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('prog/', include('proglib.urls')),
