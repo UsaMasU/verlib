@@ -217,8 +217,8 @@ LOGIN_URL = '/account/login'
 
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
-EMAIL_HOST_USER = os.environ.get('user_proglib_mail')   # 'proglib@vertek.ru'
-EMAIL_HOST_PASSWORD = os.environ.get('user_proglib_pw')   # 'ketrev_2021!'
+EMAIL_HOST_USER = os.environ.get('user_proglib_mail')
+EMAIL_HOST_PASSWORD = os.environ.get('user_proglib_pw')
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # output to console
 # EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'    # just pass sending
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   # real smtp sending
@@ -229,8 +229,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # COMMENT_PROFILE_API_FIELDS = ('display_name', 'birth_date', 'image')
-COMMENT_FLAGS_ALLOWED = 2
-COMMENT_SHOW_FLAGGED = True
+# COMMENT_FLAGS_ALLOWED = 2
+# COMMENT_SHOW_FLAGGED = True
 
 # COMMENT_ALLOW_ANONYMOUS = True
 COMMENT_FROM_EMAIL = os.environ.get('COMMENT_FROM_EMAIL', 'user@doamin')
