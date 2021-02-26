@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Авторизация</title>
+<title>Отзыв</title>
 {% endblock %}
 
 
@@ -11,7 +11,7 @@
     <br>
     <div class="col-sm card mb-4 shadow-sm text-center">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Авторизация</h4>
+            <h4 class="my-0 font-weight-normal">Форма обратной связи</h4>
             <span><a href="#"></a></span>
         </div>
         <div class="card-body text-left">
@@ -22,14 +22,8 @@
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                <button type="submit" class="btn btn-primary btn-block">Отправить</button>
             </form>
-
-            <div class="mt-2 px-0" data-toggle="tooltip" data-placement="bottom" title="Регистрация">
-                <a class="nav-link btn btn-outline-success btn-sm noborder" role="button"
-                   href="/account/register">регистрация нового пользователя</a>
-            </div>
-
         </div>
     </div>
 </div>

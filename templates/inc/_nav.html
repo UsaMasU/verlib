@@ -2,6 +2,15 @@
 {% load static %}
 
 <style>
+.logo {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    color: green;
+    background-color: #f8f9fa;
+}
 </style>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow fixed-top sticky-top p-0">
@@ -14,11 +23,8 @@
 
     <div class="collapse navbar-collapse my-1" id="navbarsExampleDefault">
 
-        <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Библиотека программных решений">
-            <a class="nav-link btn-light btn-sm d-none d-md-block noborder" role="button"
-               href="{% url 'lib_main' %}">
-                <div style="color: green;"><b>ProgLib</b></div>
-            </a>
+        <div class="px-0" data-toggle="tooltip" data-placement="bottom" title="Библиотека программных решений">
+            <div class="logo d-none d-md-block noborder font-weight-bold">ProgLib</div>
         </div>
 
         <div class="nav-item text-nowrap px-1" data-toggle="tooltip" data-placement="bottom" title="Главная страница">
