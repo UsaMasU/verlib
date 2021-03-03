@@ -37,6 +37,7 @@
                                 <th>Метки</th>
                                 <th>Автор</th>
                                 <th>Изменение</th>
+                                <th>Статус</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -78,6 +79,9 @@
                                     {% endfor %}
                                 </td>
                                 <td>{{ obj.updated_at }}</td>
+                                <td>
+                                    {{ obj.get_status_display }}
+                                </td>
                             </tr>
                             {% endfor %}
                             </tbody>

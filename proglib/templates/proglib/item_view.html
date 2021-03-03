@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load proglib_filters %}
+{% load proglib_tags %}
 {% load comment_tags %} {# Loading the template tag #}
 
 {% block title %}
@@ -18,6 +19,7 @@
             <span class="pull-right">Категория:
               <a class="category" href="{{ object.category.get_absolute_url }}">{{ object.category }}</a>
             </span>
+
           </div>
           <div class="card-body">
             {% if not object_plc and not object_hmi and not object.links and not object.implements %}
@@ -31,6 +33,8 @@
             <h1 class="card-title pricing-card-title">{{ object.func }}
               <small class="text-muted">/ {{ object.version }}</small>
               <small class="text-muted pull-right" style="font-size: 30%">
+                {# статус: <span class="text-primary"> <b>{{ object.status|upper }}</b></span> #}
+                {% item_status item_object=object %}
                 обновлено:
                 {{ object.updated_at }}
                 <br>

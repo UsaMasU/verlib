@@ -217,6 +217,8 @@ LOGIN_URL = '/account/login'
 
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
 EMAIL_HOST_USER = os.environ.get('user_proglib_mail')
 EMAIL_HOST_PASSWORD = os.environ.get('user_proglib_pw')
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # output to console

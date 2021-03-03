@@ -101,6 +101,15 @@ class LibraryTree(MPTTModel):
 
 
 class LibraryItem(models.Model):
+    STATUS = (
+        ('agreement', 'согласование'),
+        ('editing', 'доработка'),
+        ('actual', 'актуальный'),
+        ('not_actual', 'не актуальный'),
+        ('not_used', 'не используется'),
+        ('operating', 'рабочий'),
+        ('priority', 'приоритетный'),
+    )
     title = models.CharField(verbose_name='Название', max_length=50)
     func = models.CharField(verbose_name='Функция', max_length=50)
     version = models.DecimalField(verbose_name='Версия', max_digits=10, decimal_places=2)
@@ -118,6 +127,7 @@ class LibraryItem(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Обновлено')
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     comments = GenericRelation(Comment)
+    status = models.CharField(max_length=30, choices=STATUS, default='agreement')
 
     def __str__(self):
         return f"{self.title}"
