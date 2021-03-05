@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load proglib_filters %}
 
 {% block title %}
     <title>Vertek</title>
@@ -70,7 +71,7 @@
                                 </td>
                                 <td>
                                     {% for tag in obj.tag.prefetch_related %}
-                                    <a href="{{ tag.get_absolute_url }}">{{ tag }}</a>
+                                    <a href="{{ tag.get_absolute_url }}">{{ tag|add_symbol:'#' }}</a>
                                     {% endfor %}
                                 </td>
                                 <td>
