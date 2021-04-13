@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import DetailView, ListView
 from django.views.generic.list import MultipleObjectMixin
-from proglib.models import LibraryTree, LibraryItem, PLC, Tag, HMI
+from proglib.models import LibraryTree, LibraryItem, PLC, Tag, HMI, ItemAuthor
 from .apps import ProglibConfig
 
 
@@ -117,14 +117,14 @@ class TagView(DetailView, MultipleObjectMixin):
 
 
 class ItemAuthorView(DetailView, MultipleObjectMixin):
-    model = Tag
-    template_name = 'proglib/tag_view.html'
+    model = ItemAuthor
+    template_name = 'proglib/author_view.html'
     paginate_by = 2
 
     def get_context_data(self, **kwargs):
-        object_list = LibraryItem.objects.filter(tag__slug=self.object.slug)
+        object_list = LibraryItem.objects.filter(author__slug=self.object.slug)
         context = super(ItemAuthorView, self).get_context_data(object_list=object_list, **kwargs)
-        context['page_title'] = kwargs['object'].title
+        context['page_title'] = kwargs['object'].name
         context['object_list'] = object_list
         print(object_list)
         return context
