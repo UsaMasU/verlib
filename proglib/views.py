@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import DetailView, ListView
@@ -32,10 +33,10 @@ class Search(ListView):
     def get(self, *args, **kwargs):
         print('Processing GET request')
         response = super().get(*args, **kwargs)
-        s_input = self.request.GET.get('s_input')
-        s_select = self.request.GET.get('s_select')
-        print('search_str:', s_input)
-        print('search_parameter:', s_select)
+        search_text = self.request.GET.get('search_text')
+        search_option = self.request.GET.get('search_option')
+        print('get_search_str:', search_text)
+        print('get_search_parameter:', search_option)
         #print('response:', response)
         print('Finished processing GET request')
         return response
@@ -43,33 +44,33 @@ class Search(ListView):
     def get_queryset(self):
         print('Processing QUERYSET')
 
-        s_input = self.request.GET.get('s_input')
-        s_select = self.request.GET.get('s_select')
+        search_text = self.request.GET.get('search_text')
+        search_option = self.request.GET.get('search_option')
         # qs.filter(name__startswith=self.kwargs.name)
-        if len(s_input) == 0:
+        if len(search_text) == 0:
             print('Пустое поле')
 
-        if s_select == 'объект':
+        if search_option == 'объект':
             pass
-        elif s_select == 'метка':
+        elif search_option == 'метка':
             pass
-        elif s_select == 'текст':
+        elif search_option == 'текст':
             pass
         else:
             pass
 
-        print('search_str:', s_input)
-        print('search_parameter:', s_select)
+        print('queryset_search_str:', search_text)
+        print('queryset_search_parameter:', search_option)
 
         #object_list = LibraryItem.objects.all()
 
         print('Finished processing QUERYSET')
-        return [s_input, s_select]  # object_list
+        return [search_text, search_option]  # object_list
 
     def get_context_data(self, **kwargs):
         something = self.object_list
-        print('object:', something)
         print('Processing CONТEXT_DATA')
+        print('object:', something)
         data = super().get_context_data(**kwargs)
         data['page_title'] = 'Authors'
         print('Finished processing CONТEXT_DATA')
@@ -159,3 +160,39 @@ class ItemView(DetailView):
         context['object_author'] = context['object'].author.prefetch_related().all()
         context['object_edit_link'] = ''.join(['admin/', ProglibConfig.name, '/', (self.model.__name__).lower(),'/', str(kwargs['object'].id), '/change/'])
         return context
+
+
+def search(request):
+    template = 'proglib/search.html'
+    name_url = request.resolver_match.url_name
+    context = {}
+
+    if request.method == 'POST':
+        if 'search_text' in request.POST:
+            if request.POST['search_option'] == 'объект':
+                search_text = [
+                    request.POST['search_text'].lower(),
+                    request.POST['search_text'].capitalize(),
+                    request.POST['search_text'].upper()
+                ]
+                search_obj_found = []
+
+                context['search_text'] = request.POST['search_text']
+
+                for text in search_text:
+                    search_obj = LibraryItem.objects.filter(Q(title__contains=text) | Q(content__contains=text))
+                    if len(search_obj) > 0:
+                        for obj in search_obj:
+                            search_obj_found.append(obj)
+                    if len(search_obj_found):
+                        context['object_list'] = set(search_obj_found)
+                return render(request, template, context)
+            elif request.POST['search_option'] == 'метка':
+                print('метка')
+            elif request.POST['search_option'] == 'текст':
+                print('текст')
+            else:
+                print('no option')
+    else:
+        print('get from func...')
+        return render(request, template, context)

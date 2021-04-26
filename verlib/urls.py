@@ -18,10 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from proglib.views import Search
+from proglib.views import Search, search
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
+    #path('search/', search, name='lib_search'),
     path('comment/', include('comment.urls')),
     path('account/', include('users.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
