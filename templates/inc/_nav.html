@@ -75,6 +75,7 @@
                 <section class="search-sec">
                     <div class="container">
                         <form action="{% url 'search' %}" method="get" novalidate="novalidate">
+                            {#% csrf_token %#}
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="row">

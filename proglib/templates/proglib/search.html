@@ -11,20 +11,12 @@
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10" style="padding-left: 0px; padding-right: 0px;">
     <div class="container-fluid">
-        {% comment %}
-        <div class="row">
-            <div class="col-sm">
-                <h2>
-                </h2>
-            </div>
-        </div>
-        {% endcomment %}
 
         <div class="row">
             <div class="col-sm">
                 <div class="col-sm card mb-4 shadow-sm">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">Результат поиска по запросу: <b><i>{{ search_text }}</i></b></h4>
+                        <h4 class="my-0 font-weight-normal">Результат поиска по запросу: <b><i>{{ get_search_str }}</i></b></h4>
                     </div>
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">
@@ -56,7 +48,7 @@
                         {% endcomment %}
 
 
-                        {% if object_list %}
+                        {% if objects %}
                         <div class="table-responsive">
                             <table class="table table-striped table-sm">
                                 <thead>
@@ -73,7 +65,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for obj in object_list %}
+                                {% for obj in objects %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></td>
@@ -108,17 +100,13 @@
                         {% else %}
                         {% endif %}
 
-
-                        {% comment %}
                         <div class="col-md-9">
-
                             {% if objects.has_other_pages %}
-
                             <nav aria-label="...">
                                 <ul class="pagination">
                                     {% if objects.has_previous %}
                                     <li class="page-item">
-                                        <a class="page-link" href="?page={{objects.previous_page_number }}"
+                                        <a class="page-link" href="?search_text={{ get_search_str }}&search_option={{ get_search_parameter }}&page={{ objects.previous_page_number }}"
                                            tabindex="-1"><<</a>
                                     </li>
                                     {% endif %}
@@ -126,93 +114,18 @@
                                     {% for page in objects.paginator.page_range %}
                                     {% if objects.number == page %}
                                     <li class="page-item active" aria-current="page">
-                                        <a class="page-link" href="?page={{ page }}">{{ page }} <span class="sr-only">(current)</span></a>
+                                        <a class="page-link" href="?search_text={{ get_search_str }}&search_option={{ get_search_parameter }}&page={{ page }}">{{ page }} <span class="sr-only">(current)</span></a>
                                     </li>
-                                    {% elif page > objects.number|add:-1 and page < objects.number|add:1 %}
+                                    {% elif page > objects.number|add:-10 and page < objects.number|add:10 %}
                                     <li class="page-item">
-                                        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                        <a class="page-link" href="?search_text={{ get_search_str }}&search_option={{ get_search_parameter }}&page={{ page }}">{{ page }}</a>
                                     </li>
                                     {% endif %}
                                     {% endfor %}
 
                                     {% if objects.has_next %}
                                     <li class="page-item">
-                                        <a class="page-link" href="?page={{ objects.next_page_number }}">>></a>
-                                    </li>
-                                    {% endif %}
-                                </ul>
-                            </nav>
-                            {% endif %}
-                        </div>
-                        {% endcomment %}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {% comment %}
-        <div class="row">
-            <div class="col-sm">
-                <div class="col-sm card mb-4 shadow-sm">
-                    <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">{{ object.title }}HMI</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">
-                            <small class="text-muted"></small>
-                        </h1>
-
-                        <div class="col-md-12 well">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    {% for hmi in hmi_objects %}
-                                    <div class="col-sm">
-                                        <div class="col-sm card mb-4 shadow-sm">
-                                            <div class="card-header">
-                                                <h4 class="my-0 font-weight-normal">{{ hmi.title }}</h4>
-                                                <a href="{{ hmi.get_absolute_url }}">{{ hmi.title }}</a>
-                                            </div>
-                                            <div class="card-body">
-                                                <h1 class="card-title pricing-card-title">
-                                                    <small class="text-muted"></small>
-                                                </h1>
-                                                {{ hmi.content|safe }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-9">
-
-                            {% if hmi_objects.has_other_pages %}
-
-                            <nav aria-label="...">
-                                <ul class="pagination">
-                                    {% if hmi_objects.has_previous %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page_hmi={{ hmi_objects.previous_page_number }}&page_plc={{ plc_objects.number }}"
-                                           tabindex="-1"><<</a>
-                                    </li>
-                                    {% endif %}
-
-                                    {% for page in hmi_objects.paginator.page_range %}
-                                    {% if hmi_objects.number == page %}
-                                    <li class="page-item active" aria-current="page">
-                                        <a class="page-link" href="?page_hmi={{ page }}">{{ page }} <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    {% elif page > hmi_objects.number|add:-3 and page < hmi_objects.number|add:3 %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page_hmi={{ page }}&page_plc={{ plc_objects.number }}">{{ page }}</a>
-                                    </li>
-                                    {% endif %}
-                                    {% endfor %}
-
-                                    {% if hmi_objects.has_next %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page_hmi={{ hmi_objects.next_page_number }}&page_plc={{ plc_objects.number }}">>></a>
+                                        <a class="page-link" href="?search_text={{ get_search_str }}&search_option={{ get_search_parameter }}&page={{ objects.next_page_number }}">>></a>
                                     </li>
                                     {% endif %}
                                 </ul>
@@ -220,17 +133,12 @@
                             {% endif %}
                         </div>
 
-
                     </div>
                 </div>
             </div>
         </div>
-        {% endcomment %}
+
     </div>
-
-    {% comment %}
-    {% include 'proglib/inc/_pagination.html' with page_name='page' page_obj=objects %}
-    {% endcomment %}
 
 </main>
 

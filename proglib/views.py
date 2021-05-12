@@ -27,50 +27,98 @@ class MainPage(ListView):
 
 
 class Search(ListView):
-    template_name = 'search.html'
-    paginate_by = 3
+    template_name = 'proglib/search.html'
+    paginate_by = 50
+    context = {}
+
+    def find(self, search_text, search_option):
+        print('Processing FIND')
+        search_obj_found = []
+        if len(search_text) >= 3:
+            if search_option == 'объект':
+                search_text_reg = [
+                    search_text.lower(),
+                    search_text.capitalize(),
+                    search_text.upper()
+                ]
+                for text in search_text_reg:
+                    search_obj = LibraryItem.objects.filter(Q(title__contains=text) | Q(content__contains=text))
+                    if len(search_obj) > 0:
+                        for obj in search_obj:
+                            search_obj_found.append(obj)
+                # return search_obj
+            elif search_option == 'метка':
+                print('метка')
+            elif search_option == 'текст':
+                print('текст')
+            else:
+                print('no option')
+        else:
+            print('Недостаточно информации для поиска')
+        print('Finished processing FIND')
+        return list(set(search_obj_found))
+
+
+    def post(self, *args, **kwargs):
+        print('Processing POST request')
+        search_text = self.request.POST.get('search_text')
+        search_option = self.request.POST.get('search_option')
+        print('post_search_str:', search_text)
+        print('post_search_parameter:', search_option)
+        self.context['search_text'] = search_text
+        self.context['object_list'] = self.find(search_text, search_option)
+        print('Finished processing POST request')
+        return render(self.request, self.template_name, self.context)
 
     def get(self, *args, **kwargs):
         print('Processing GET request')
-        response = super().get(*args, **kwargs)
+        # response = super().get(*args, **kwargs)
         search_text = self.request.GET.get('search_text')
         search_option = self.request.GET.get('search_option')
         print('get_search_str:', search_text)
         print('get_search_parameter:', search_option)
+
+        # paginator_search = Paginator(LibraryItem.objects.filter(updated_at__lte=timezone.now()).order_by('-updated_at')[:10], 3)
+        paginator_search = Paginator(self.find(search_text, search_option), self.paginate_by)
+        page_num_search = self.request.GET.get('page', 1)
+        page_objects_search = paginator_search.get_page(page_num_search)
+        print('page_objects_search:', page_objects_search)
+        for item in page_objects_search:
+            print(item)
         #print('response:', response)
         print('Finished processing GET request')
-        return response
+        #return response
+
+        context = {
+            'objects': page_objects_search,
+            'get_search_str': search_text,
+            'get_search_parameter': search_option
+        }
+        print('context: ', context);
+        return render(self.request, self.template_name, context)
+
+
 
     def get_queryset(self):
         print('Processing QUERYSET')
 
         search_text = self.request.GET.get('search_text')
         search_option = self.request.GET.get('search_option')
-        # qs.filter(name__startswith=self.kwargs.name)
-        if len(search_text) == 0:
-            print('Пустое поле')
-
-        if search_option == 'объект':
-            pass
-        elif search_option == 'метка':
-            pass
-        elif search_option == 'текст':
-            pass
-        else:
-            pass
 
         print('queryset_search_str:', search_text)
         print('queryset_search_parameter:', search_option)
 
-        #object_list = LibraryItem.objects.all()
-
         print('Finished processing QUERYSET')
-        return [search_text, search_option]  # object_list
+        return self.find(search_text, search_option)    # object_list
 
     def get_context_data(self, **kwargs):
-        something = self.object_list
         print('Processing CONТEXT_DATA')
+        something = self.object_list
         print('object:', something)
+        print("====================")
+        for item in something:
+            print(item.id, item.title)
+        print("====================")
         data = super().get_context_data(**kwargs)
         data['page_title'] = 'Authors'
         print('Finished processing CONТEXT_DATA')

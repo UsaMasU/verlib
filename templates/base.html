@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="VSemenov">
 
+    <script>
+      if (sessionStorage.getItem('program_library') == null || sessionStorage.getItem('program_library') == undefined){
+        sessionStorage.setItem('program_library', tree = JSON.stringify({'tree_open_branches':[], 'actual_branch':[]}));
+      }
+    </script>
+
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">

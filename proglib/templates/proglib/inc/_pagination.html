@@ -1,6 +1,7 @@
 <div class="col-md-9">
+    <p> PAGE </p>
+    <p> Pages: {{ page_obj }} </p>
     {% if page_obj.has_other_pages %}
-
     <nav aria-label="...">
         <ul class="pagination">
             {% if page_obj.has_previous %}
