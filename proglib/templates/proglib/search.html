@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load proglib_filters %}
 {% load static %}
 
 {% block title %}
@@ -47,7 +48,6 @@
                         </div>
                         {% endcomment %}
 
-
                         {% if objects %}
                         <div class="table-responsive">
                             <table class="table table-striped table-sm">
@@ -69,29 +69,38 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></td>
-                                    <td><a href="{{ obj.get_absolute_url }}">{{ obj.func }}</a></td>
-                                    <td>{{ obj.version }}</td>
-                                    <td>
-                                        {% for plc in obj.plc.prefetch_related %}
-                                        <a href="{{ plc.get_absolute_url }}">{{ plc }}</a>
+
+                                    {% if obj.get_model_type == 'lib_item' %}
+                                        <td><a href="{{ obj.get_absolute_url }}">{{ obj.func }}</a></td>
+                                        <td>{{ obj.version }}</td>
+                                        <td>
+                                            {% for plc in obj.plc.prefetch_related %}
+                                            <a href="{{ plc.get_absolute_url }}">{{ plc }}</a>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% for hmi in obj.hmi.prefetch_related %}
+                                            <a href="{{ hmi.get_absolute_url }}">{{ hmi }}</a>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% for tag in obj.tag.prefetch_related %}
+                                            <a href="{{ tag.get_absolute_url }}">{{ tag }}</a>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% for author in obj.author.prefetch_related %}
+                                            <a href="{{ author.get_absolute_url }}">{{ author }}</a>
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{ obj.updated_at }}</td>
+                                    {% else %}
+                                        <td style="background-color: #ffdab9;"> <a href="{{ obj.get_absolute_url }}">КАТЕГОРИЯ</a></td>
+                                        {% for i in 6|times %}
+                                            <td style="background-color: #ffdab9;"></td>
                                         {% endfor %}
-                                    </td>
-                                    <td>
-                                        {% for hmi in obj.hmi.prefetch_related %}
-                                        <a href="{{ hmi.get_absolute_url }}">{{ hmi }}</a>
-                                        {% endfor %}
-                                    </td>
-                                    <td>
-                                        {% for tag in obj.tag.prefetch_related %}
-                                        <a href="{{ tag.get_absolute_url }}">{{ tag }}</a>
-                                        {% endfor %}
-                                    </td>
-                                    <td>
-                                        {% for author in obj.author.prefetch_related %}
-                                        <a href="{{ author.get_absolute_url }}">{{ author }}</a>
-                                        {% endfor %}
-                                    </td>
-                                    <td>{{ obj.updated_at }}</td>
+                                    {% endif %}
+
                                 </tr>
                                 {% endfor %}
                                 </tbody>

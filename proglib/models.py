@@ -91,6 +91,9 @@ class LibraryTree(MPTTModel):
     def get_absolute_url(self):
         return reverse('lib_category', kwargs={"slug": self.slug})
 
+    def get_model_type(self):
+        return "lib_category"
+
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = '1.Категории'
@@ -134,6 +137,9 @@ class LibraryItem(models.Model):
 
     def get_absolute_url(self):
         return reverse('lib_item', kwargs={"slug": self.slug})
+
+    def get_model_type(self):
+        return "lib_item"
 
     class Meta:
         verbose_name = 'Обьект'

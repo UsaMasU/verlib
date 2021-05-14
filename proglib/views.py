@@ -42,19 +42,24 @@ class Search(ListView):
                     search_text.upper()
                 ]
                 for text in search_text_reg:
+                    search_cat = LibraryTree.objects.filter(title__contains=text)
                     search_obj = LibraryItem.objects.filter(Q(title__contains=text) | Q(content__contains=text))
+                    if len(search_cat) > 0:
+                        for obj in search_cat:
+                            search_obj_found.append(obj)
                     if len(search_obj) > 0:
                         for obj in search_obj:
                             search_obj_found.append(obj)
                 # return search_obj
-            elif search_option == 'метка':
-                print('метка')
+            elif search_option == 'категория':
+                print('категория')
             elif search_option == 'текст':
                 print('текст')
             else:
                 print('no option')
         else:
             print('Недостаточно информации для поиска')
+        print(search_obj_found)
         print('Finished processing FIND')
         return list(set(search_obj_found))
 
