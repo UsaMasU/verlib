@@ -28,7 +28,7 @@ class MainPage(ListView):
 
 class Search(ListView):
     template_name = 'proglib/search.html'
-    paginate_by = 50
+    paginate_by = 20
     context = {}
 
     def find(self, search_text, search_option):
